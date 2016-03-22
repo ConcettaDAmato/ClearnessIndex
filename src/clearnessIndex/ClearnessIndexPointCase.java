@@ -101,24 +101,29 @@ public class ClearnessIndexPointCase extends JGTModel {
 		//iterate over the set
 		Set<Integer> stationCoordinatesIdSet = stationCoordinates.keySet();
 
-		// trasform the list of idStation into an array
-		idStations= stationCoordinatesIdSet.toArray();
+		for (Integer stationIndex : stationCoordinatesIdSet) {
 
-		// iterate over the list of the stations
-		for (int i=0;i<idStations.length;i++){
-
-			// read the input data for the given station
-			SWRBMeasured=inSWRBMeasuredValues.get(idStations[i])[0];
-			SWRBTopATM=inSWRBTopATMValues.get(idStations[i])[0];
+			// try to read the input data for the given station
+			try {
+				SWRBMeasured=inSWRBMeasuredValues.get(stationIndex)[0];
+				SWRBTopATM=inSWRBTopATMValues.get(stationIndex)[0];
+			} catch (Exception e) {
+				// skip loop
+				String warningMessage = "Missing data for station " + stationIndex + "\n";
+				warningMessage += "\t No computation will be done. Skipped.";
+				System.out.println(warningMessage);
+				continue;
+			}
 
 
 			// compute the clearness index
 			double CI=(SWRBTopATM==0)?doubleNovalue:SWRBMeasured/SWRBTopATM;
 
 			//store the results
-			storeResult_series((Integer)idStations[i],CI);
+			storeResult_series(stationIndex,CI);
 
 		}
+
 	}
 
 	/**
@@ -155,7 +160,7 @@ public class ClearnessIndexPointCase extends JGTModel {
 	 * @param CI is the clearness Index
 	 * @throws SchemaException 
 	 */
-	
+
 	private void storeResult_series(Integer ID,double CI) throws SchemaException {
 		outCIHM.put(ID, new double[]{CI});
 
