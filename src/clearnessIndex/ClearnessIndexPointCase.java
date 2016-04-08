@@ -87,6 +87,7 @@ public class ClearnessIndexPointCase extends JGTModel {
 
 	@Execute
 	public void process() throws Exception { 
+		checkNull(inSWRBMeasuredValues);
 
 
 		// reading the ID of all the stations 
