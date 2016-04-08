@@ -22,6 +22,7 @@ package clearnessIndex;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import oms3.annotations.Author;
 import oms3.annotations.Description;
@@ -42,6 +43,7 @@ import org.jgrasstools.gears.libs.modules.JGTModel;
 import org.opengis.feature.simple.SimpleFeature;
 
 import static org.jgrasstools.gears.libs.modules.JGTConstants.doubleNovalue;
+
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Geometry;
 
@@ -70,13 +72,6 @@ public class ClearnessIndexPointCase extends JGTModel {
 	@Description("The double value of the SWRB at the top of the atmosphere, once read from the HashMap")
 	double SWRBTopATM;
 	
-	@Description("The shape file with the station measuremnts")
-	@In
-	public SimpleFeatureCollection inStations;
-
-	@Description("The name of the field containing the ID of the station in the shape file")
-	@In
-	public String fStationsid;
 
 	@Description(" The vetor containing the id of the station")
 	Object []idStations;
@@ -93,23 +88,21 @@ public class ClearnessIndexPointCase extends JGTModel {
 	@Execute
 	public void process() throws Exception { 
 
-		// starting from the shp file containing the stations, get the coordinate
-		//of each station
-		stationCoordinates = getCoordinate(inStations, fStationsid);
 
-		//create the set of the coordinate of the station, so we can 
-		//iterate over the set
-		Set<Integer> stationCoordinatesIdSet = stationCoordinates.keySet();
+		// reading the ID of all the stations 
+		Set<Entry<Integer, double[]>> entrySet = inSWRBMeasuredValues.entrySet();
 
-		for (Integer stationIndex : stationCoordinatesIdSet) {
+		for (Entry<Integer, double[]> entry : entrySet) {
+			
+			Integer ID = entry.getKey();
 
 			// try to read the input data for the given station
 			try {
-				SWRBMeasured=inSWRBMeasuredValues.get(stationIndex)[0];
-				SWRBTopATM=inSWRBTopATMValues.get(stationIndex)[0];
+				SWRBMeasured=inSWRBMeasuredValues.get(ID)[0];
+				SWRBTopATM=inSWRBTopATMValues.get(ID)[0];
 			} catch (Exception e) {
 				// skip loop
-				String warningMessage = "Missing data for station " + stationIndex + "\n";
+				String warningMessage = "Missing data for station " + ID + "\n";
 				warningMessage += "\t No computation will be done. Skipped.";
 				System.out.println(warningMessage);
 				continue;
@@ -120,38 +113,12 @@ public class ClearnessIndexPointCase extends JGTModel {
 			double CI=(SWRBTopATM==0)?doubleNovalue:SWRBMeasured/SWRBTopATM;
 
 			//store the results
-			storeResult_series(stationIndex,CI);
+			storeResult_series(ID,CI);
 
 		}
 
 	}
 
-	/**
-	 * Gets the coordinate given the shp file and the field name in the shape with the coordinate of the station.
-	 *
-	 * @param collection is the shp file with the stations
-	 * @param idField is the name of the field with the id of the stations 
-	 * @return the coordinate of each station
-	 * @throws Exception the exception in a linked hash map
-	 */
-	private LinkedHashMap<Integer, Coordinate> getCoordinate(SimpleFeatureCollection collection, String idField)
-			throws Exception {
-		LinkedHashMap<Integer, Coordinate> id2CoordinatesMap = new LinkedHashMap<Integer, Coordinate>();
-		FeatureIterator<SimpleFeature> iterator = collection.features();
-		Coordinate coordinate = null;
-		try {
-			while (iterator.hasNext()) {
-				SimpleFeature feature = iterator.next();
-				int stationNumber = ((Number) feature.getAttribute(idField)).intValue();
-				coordinate = ((Geometry) feature.getDefaultGeometry()).getCentroid().getCoordinate();
-				id2CoordinatesMap.put(stationNumber, coordinate);
-			}
-		} finally {
-			iterator.close();
-		}
-
-		return id2CoordinatesMap;
-	}
 	
 	/**
 	 * Store result_series stores the results in the hashMaps .

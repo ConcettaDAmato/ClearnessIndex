@@ -21,8 +21,6 @@ package clearnessIndexTest;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 
-import org.geotools.data.simple.SimpleFeatureCollection;
-import org.jgrasstools.gears.io.shapefile.OmsShapefileFeatureReader;
 import org.jgrasstools.gears.io.timedependent.OmsTimeSeriesIteratorReader;
 import org.jgrasstools.gears.io.timedependent.OmsTimeSeriesIteratorWriter;
 import org.jgrasstools.hortonmachine.utils.HMTestCase;
@@ -58,13 +56,6 @@ public class TestCIPointCase extends HMTestCase {
 		OmsTimeSeriesIteratorReader topATMreader = getTimeseriesReader(inPathToTopATM, fId, startDate, endDate, timeStepMinutes);
 
 
-		
-		OmsShapefileFeatureReader stationsReader = new OmsShapefileFeatureReader();
-		stationsReader.file = "resources/Input/stations.shp";
-		stationsReader.readFeatureCollection();
-		SimpleFeatureCollection stationsFC = stationsReader.geodata;
-
-
 
 		OmsTimeSeriesIteratorWriter writerCI = new OmsTimeSeriesIteratorWriter();
 
@@ -78,8 +69,6 @@ public class TestCIPointCase extends HMTestCase {
 		 
 
 		ClearnessIndexPointCase CI = new ClearnessIndexPointCase();
-		CI.inStations = stationsFC;
-		CI.fStationsid = "cat" ;
 
 		while( topATMreader.doProcess  ) { 
 
