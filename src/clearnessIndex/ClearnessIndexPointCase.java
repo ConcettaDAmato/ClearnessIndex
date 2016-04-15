@@ -73,9 +73,6 @@ public class ClearnessIndexPointCase extends JGTModel {
 	double SWRBTopATM;
 	
 
-	@Description(" The vetor containing the id of the station")
-	Object []idStations;
-
 	@Description("the linked HashMap with the coordinate of the stations")
 	LinkedHashMap<Integer, Coordinate> stationCoordinates;
 	
