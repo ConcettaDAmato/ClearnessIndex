@@ -42,14 +42,14 @@ public class TestCIPointCase extends HMTestCase {
 	public TestCIPointCase() throws Exception {
 
 
-		String startDate = "2007-10-17 00:00" ;
-		String endDate = "2007-10-18 00:00";
-		int timeStepMinutes = 60;
+		String startDate = "2008-01-01 00:00" ;
+		String endDate = "2008-01-03 00:00";
+		int timeStepMinutes = 60*24;
 		String fId = "ID";
 
-		String inPathToSWRBmeasured ="resources/Input/SWRBMeasured.csv";
-		String inPathToTopATM ="resources/Input/TopATM.csv";
-		String pathToCI= "resources/Output/CI.csv";
+		String inPathToSWRBmeasured ="/Users/marialaura/Desktop/dottorato/CSU/Brazil/NewAge/data/radiation.csv";
+		String inPathToTopATM ="/Users/marialaura/Desktop/dottorato/CSU/Brazil/NewAge/output/TOPATM.csv";
+		String pathToCI= "/Users/marialaura/Desktop/dottorato/CSU/Brazil/NewAge/output/CI.csv";
 
 
 		OmsTimeSeriesIteratorReader SWRBreader = getTimeseriesReader(inPathToSWRBmeasured, fId, startDate, endDate, timeStepMinutes);
