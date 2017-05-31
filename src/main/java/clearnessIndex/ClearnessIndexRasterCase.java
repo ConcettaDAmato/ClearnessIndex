@@ -92,7 +92,7 @@ public class ClearnessIndexRasterCase extends JGTModel {
 		WritableRaster SWRBTopATMMap=mapsReader(inSWRBTopATMGrid);
 
 		// get the dimension of the maps
-		RegionMap regionMap = CoverageUtilities.getRegionParamsFromGridCoverage(inDem);
+		RegionMap regionMap = CoverageUtilities.getRegionParamsFromGridCoverage(inSWRBMeasuredGrid);
         int cols = regionMap.getCols();
         int rows = regionMap.getRows();
 
