@@ -38,10 +38,10 @@ import oms3.annotations.Out;
 import oms3.annotations.Status;
 
 import org.geotools.coverage.grid.GridCoverage2D;
-import org.jgrasstools.gears.libs.modules.JGTConstants;
-import org.jgrasstools.gears.libs.modules.JGTModel;
-import org.jgrasstools.gears.utils.RegionMap;
-import org.jgrasstools.gears.utils.coverage.CoverageUtilities;
+import org.hortonmachine.gears.libs.modules.HMConstants;
+import org.hortonmachine.gears.libs.modules.HMModel;
+import org.hortonmachine.gears.utils.RegionMap;
+import org.hortonmachine.gears.utils.coverage.CoverageUtilities;
 import com.vividsolutions.jts.geom.Coordinate;
 
 
@@ -49,11 +49,11 @@ import com.vividsolutions.jts.geom.Coordinate;
 		+ "and the shortwave at the top of the atmosphere")
 @Author(name = "Marialaura Bancheri and Giuseppe Formetta", contact = "maryban@hotmail.it")
 @Keywords("Hydrology, clearness index")
-@Label(JGTConstants.HYDROGEOMORPHOLOGY)
+@Label(HMConstants.HYDROGEOMORPHOLOGY)
 @Name("ClearnessIndexPointCase")
 @Status(Status.CERTIFIED)
 @License("General Public License Version 3 (GPLv3)")
-public class ClearnessIndexRasterCase extends JGTModel {
+public class ClearnessIndexRasterCase extends HMModel {
 
 	@Description("The map of the interpolated measured shortwave ")
 	@In
@@ -97,7 +97,7 @@ public class ClearnessIndexRasterCase extends JGTModel {
         int rows = regionMap.getRows();
 
 		// create the output maps with the right dimensions
-		WritableRaster outCIWritableRaster= CoverageUtilities.createDoubleWritableRaster(cols, rows, null, null, null);
+		WritableRaster outCIWritableRaster= CoverageUtilities.createWritableRaster(cols, rows, null, null, null);
 		WritableRandomIter CIIter = RandomIterFactory.createWritable(outCIWritableRaster, null);
 		
 		// iterate over the entire domain and compute for each pixel the SWE

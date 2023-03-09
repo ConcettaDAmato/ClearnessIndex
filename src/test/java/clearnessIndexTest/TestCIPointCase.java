@@ -21,8 +21,8 @@ package clearnessIndexTest;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 
-import org.jgrasstools.gears.io.timedependent.OmsTimeSeriesIteratorReader;
-import org.jgrasstools.gears.io.timedependent.OmsTimeSeriesIteratorWriter;
+import org.hortonmachine.gears.io.timedependent.OmsTimeSeriesIteratorReader;
+import org.hortonmachine.gears.io.timedependent.OmsTimeSeriesIteratorWriter;
 
 
 import org.junit.Test;

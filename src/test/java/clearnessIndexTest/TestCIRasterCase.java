@@ -20,8 +20,8 @@ package clearnessIndexTest;
 
 import org.geotools.coverage.grid.GridCoverage2D;
 
-import org.jgrasstools.gears.io.rasterreader.OmsRasterReader;
-import org.jgrasstools.gears.io.rasterwriter.OmsRasterWriter;
+import org.hortonmachine.gears.io.rasterreader.OmsRasterReader;
+import org.hortonmachine.gears.io.rasterwriter.OmsRasterWriter;
 
 import org.junit.Test;
 
@@ -43,22 +43,16 @@ public class TestCIRasterCase{
 
 		OmsRasterReader SWRBmeasuredReader = new OmsRasterReader();
 		SWRBmeasuredReader.file = "resources/Input/dtm.asc";
-		SWRBmeasuredReader.fileNovalue = -9999.0;
-		SWRBmeasuredReader.geodataNovalue = Double.NaN;
 		SWRBmeasuredReader.process();
 		GridCoverage2D SWRBmeasured = SWRBmeasuredReader.outRaster;
 		
 		OmsRasterReader SWRBtopReader = new OmsRasterReader();
 		SWRBtopReader.file = "resources/Input/dtm.asc";
-		SWRBtopReader.fileNovalue = -9999.0;
-		SWRBtopReader.geodataNovalue = Double.NaN;
 		SWRBtopReader.process();	
 		GridCoverage2D SWRBtop = SWRBtopReader.outRaster;
 		
 		OmsRasterReader demReader = new OmsRasterReader();
 		demReader.file = "resources/Input/dtm.asc";
-		demReader.fileNovalue = -9999.0;
-		demReader.geodataNovalue = Double.NaN;
 		demReader.process();	
 		GridCoverage2D dem = demReader.outRaster;
 		

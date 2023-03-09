@@ -38,25 +38,23 @@ import oms3.annotations.Status;
 import org.geotools.data.simple.SimpleFeatureCollection;
 import org.geotools.feature.FeatureIterator;
 import org.geotools.feature.SchemaException;
-import org.jgrasstools.gears.libs.modules.JGTConstants;
-import org.jgrasstools.gears.libs.modules.JGTModel;
+import org.hortonmachine.gears.libs.modules.HMConstants;
+import org.hortonmachine.gears.libs.modules.HMModel;
 import org.opengis.feature.simple.SimpleFeature;
 
-import static org.jgrasstools.gears.libs.modules.JGTConstants.doubleNovalue;
+import static org.hortonmachine.gears.libs.modules.HMConstants.doubleNovalue;
 
 import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.Geometry;
-
 
 @Description("The component computes the Clearness index, which is the ratio between the incoming shortwave"
 		+ "and the shortwave at the top of the atmosphere")
 @Author(name = "Marialaura Bancheri and Giuseppe Formetta", contact = "maryban@hotmail.it")
 @Keywords("Hydrology, clearness index")
-@Label(JGTConstants.HYDROGEOMORPHOLOGY)
+@Label(HMConstants.HYDROGEOMORPHOLOGY)
 @Name("ClearnessIndexPointCase")
 @Status(Status.CERTIFIED)
 @License("General Public License Version 3 (GPLv3)")
-public class ClearnessIndexPointCase extends JGTModel {
+public class ClearnessIndexPointCase extends HMModel {
 
 	@Description("The Hashmap with the time series of the SWRB meadured values")
 	@In
