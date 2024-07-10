@@ -107,6 +107,8 @@ public class ClearnessIndexPointCase extends HMModel {
 
 			// compute the clearness index
 			double CI=(SWRBTopATM==0)?doubleNovalue:SWRBMeasured/SWRBTopATM;
+			
+			CI=(CI>1)?1:CI;
 
 			//store the results
 			storeResult_series(ID,CI);
